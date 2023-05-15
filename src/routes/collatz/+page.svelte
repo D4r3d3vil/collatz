@@ -1,39 +1,55 @@
 <script>
-let num = 2, timeout=false, seconds=0, inputnum=2, solvetimeout=false, currentnum=2, iterations=0, heighest_point=2;
-function collatz(){
-    if(num==1) return stop_collatz()
-    if(num % 2 == 0){
-        num /= 2
-    }else{
-        num = (num*3) + 1
-    }
-    iterations++
-    if(num > heighest_point) heighest_point = num
+let num = 2,
+  timeout = false,
+  seconds = 0,
+  inputnum = 2,
+  solvetimeout = false,
+  currentnum = 2,
+  iterations = 0,
+  heighest_point = 2;
+
+function collatz() {
+  if (num == 1) return stop_collatz();
+  if (num % 2 == 0) {
+    num /= 2;
+  } else {
+    num = num * 3 + 1;
+  }
+  iterations++;
+  if (num > heighest_point) heighest_point = num;
 }
-function start_collatz(){
-    stop_collatz()
-    num = inputnum
-    timeout = setInterval(collatz, seconds*1000)
+
+function start_collatz() {
+  stop_collatz();
+  num = inputnum;
+  timeout = setInterval(collatz, seconds * 1000);
 }
-function stop_collatz(){
-    clearInterval(timeout)
-    timeout = false
+
+function stop_collatz() {
+  clearInterval(timeout);
+  timeout = false;
 }
-function solve_mode(){
-    num = 2
-    heighest_point = 2
-    solve()
+
+function solve_mode() {
+    num = currentnum=2;
+    heighest_point = iterations=0;
+    solve();
 }
-function solve(){
-    solvetimeout = setInterval(function(){
-    if(num==1){currentnum++;num=currentnum;iterations++}
-    if(num % 2 == 0){
-        num /= 2
-    }else{
-        num = (num*3) + 1
-    }
-    if(num > heighest_point) heighest_point = num
-}, seconds*1000)
+
+function solve() {
+    solvetimeout = setInterval(function () {
+        while(num!=1){
+            if (num % 2 == 0) {
+                num /= 2;
+            } else {
+                num = num *3 +1;
+            }
+            iterations++;
+            if (num > heighest_point) heighest_point = num;
+        }
+        currentnum++;
+        num=currentnum;
+    }, seconds *1000);
 }
 </script>
 <p>Interval between each run: </p><input type="text" placeholder='interval' bind:value={seconds}><br>
